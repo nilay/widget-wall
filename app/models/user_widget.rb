@@ -1,5 +1,6 @@
 class UserWidget < ApplicationRecord
   extend Enumerize
+  include UserWidgetPresenter
 
   # =======  Association ========
   belongs_to :user
@@ -7,8 +8,14 @@ class UserWidget < ApplicationRecord
   enumerize :kind, in: { visible: 0, hidden: 1 }, default: :visible, predicates: true, scope: true
 
   # Scopes
-  scope :search, ->(text){
-    where("name LIKE :search", { search: "%#{text.downcase}%"})
+
+  scope :list, ->{
+    eager_load(:user).where(kind: :visible)
   }
+
+  scope :search, ->(text){
+    list.where("user_widgets.name LIKE :search", { search: "%#{text}%"})
+  }
+
 
 end

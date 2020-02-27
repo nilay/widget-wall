@@ -9,6 +9,12 @@ Rails.application.routes.draw do
       devise_for :users, controllers: {
           registrations: 'api/v1/users/registrations',
       }, skip: [:sessions, :password]
+
+      resources :widgets do
+        collection do
+          get :visible
+        end
+      end
     end
   end
 

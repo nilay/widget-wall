@@ -1,8 +1,17 @@
 class ApplicationController < ActionController::API
+  include Renderer
+
+  # Devise code
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   respond_to :json
   before_action :doorkeeper_authorize!
 
+
+  def authenticate_scope!
+    # send(:"authenticate_#{resource_name}!", force: true)
+    self.resource = send(:"current_#{resource_name}")
+  end
 
   protected
 
