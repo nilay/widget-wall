@@ -4,6 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  #============ Association =============
+  has_many :widgets, class_name: 'UserWidget'
+  has_many :visible_widgets, -> { where(user_widgets: {kind: :visible}) },  class_name: 'UserWidget'
+  has_many :hidden_widgets, -> { where(user_widgets: {kind: :hidden}) },  class_name: 'UserWidget'
 
   class << self
     def authenticate(email, password)

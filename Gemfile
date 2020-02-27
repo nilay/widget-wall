@@ -44,3 +44,6 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'doorkeeper'
 gem 'devise'
+gem 'enumerize', '~> 2.1.2'
+# determine how your XML/JSON API responses should look like.
+gem 'acts_as_api', '~> 1.0', '>= 1.0.1'
