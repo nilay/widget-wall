@@ -2,7 +2,6 @@
 
 class Api::V1::Users::RegistrationsController < Devise::RegistrationsController
   skip_before_action :doorkeeper_authorize!, only: [:create]
-  skip_before_action :authenticate_user!, only: :update
 
   # POST /resource
   def create
