@@ -4,6 +4,14 @@ Rails.application.routes.draw do
                      :authorized_applications
   end
 
-  devise_for :users
+  scope module: :api, defaults: { format: :json }, path: 'api' do
+    scope module: :v1, path: 'v1'  do
+      devise_for :users, controllers: {
+          registrations: 'api/v1/users/registrations',
+      }, skip: [:sessions, :password]
+    end
+  end
+
+  # devise_for :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
