@@ -10,6 +10,14 @@ Rails.application.routes.draw do
           registrations: 'api/v1/users/registrations',
       }, skip: [:sessions, :password]
 
+      resources :users do
+        resources :widgets, only: [:index], controller: 'users/widgets' do
+          collection do
+            get :me
+          end
+        end
+      end
+
       resources :widgets do
         collection do
           get :visible
@@ -18,6 +26,4 @@ Rails.application.routes.draw do
     end
   end
 
-  # devise_for :users
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
